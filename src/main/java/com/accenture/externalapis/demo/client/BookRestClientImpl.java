@@ -21,7 +21,13 @@ public class BookRestClientImpl implements BookRestClient{
 
     private final RestClient restClient;
 
-    public BookRestClientImpl(RestClient.Builder builder, ExternalServiceProperties properties) {
+    public BookRestClientImpl(RestClient.Builder builder, ExternalServiceProperties properties)  {
+
+        // validates properties to be sure that all the properties exist and are not empty
+        if(!ClientPropertiesValidator.validateProperties(properties)) {
+            throw new ClientException("Cannot initialize RestClient");
+        }
+
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         factory.setConnectTimeout(Duration.ofSeconds(3)); // connection timeout 3 secs
         factory.setReadTimeout(Duration.ofSeconds(3)); // read timeout 3 secs

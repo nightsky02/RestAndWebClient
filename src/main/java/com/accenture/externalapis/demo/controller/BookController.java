@@ -19,6 +19,10 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/books")
 public class BookController {
 
+    // ***************************************
+    // Since there is a global exception handler,
+    // catching and processing the ClientException were skipped
+    // ****************************************
     private final BookRestClient bookRestClient;
     private final BookWebClient bookWebClient;
 
